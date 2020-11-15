@@ -1,0 +1,12 @@
+# Created by TechnicallyCoded  -- All rights reserved
+# USE -> & <- for color coding (ex: &c for red)
+# Delete this file and reload the server to recreate this file
+messages:
+  track_custom: '&eTracking your custom location...'
+  trackspawn: '&6Tracking your spawnpoint...'
+  change_custom_block: '&aYour custom location has been set!'
+  no_custom_target_error: '&4No custom target has been set!'
+  click_on_block_error: '&eRight click on a &6block &eto set the target'
+  custom_reset: '&cYour custom location has been reset!'
+  no_perm: '&4You do not have permission to do this!'
+  set_loc_help: '&cTo set a location /cc set <x> <y> <z>'
