@@ -10,3 +10,4 @@ messages:
   custom_reset: '&cYour custom location has been reset!'
   no_perm: '&4You do not have permission to do this!'
   set_loc_help: '&cTo set a location /cc set <x> <y> <z>'
+  invalid_coords: '&cThe coordinates provided are not numbers'

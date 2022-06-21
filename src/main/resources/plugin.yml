@@ -1,5 +1,5 @@
 name: ${project.artifactId}
-main: ${project.groupId}.Main
+main: ${project.groupId}.${project.artifactId}
 version: ${project.version}
 author: ${project.organization.name}
 api-version: 1.13
@@ -7,6 +7,4 @@ commands:
   customcompass:
     description: Main Custom Compass command
     permission: customcompass.cmd.main
-  cc:
-    description: Main Custom Compass command (short version)
-    permission: customcompass.cmd.main
+    aliases: [cc]
