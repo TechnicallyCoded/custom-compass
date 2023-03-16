@@ -34,38 +34,6 @@ public class ActionBarUtil {
     public static void sendAction(Player p, String msg) {
         try {
             String coloredMsg = ChatColor.translateAlternateColorCodes('&', msg);
-
-            /*if (ver.startsWith("v1_17_")) {
-                Object icbc = getMinecraftClass("network.chat.ChatComponentText")
-                        .getConstructor(new Class[] { String.class })
-                        .newInstance(coloredMsg);
-                Class<?> chatMessageTypeClazz = getMinecraftClass("network.chat.ChatMessageType");
-                Object ppoc = getMinecraftClass("network.protocol.game.PacketPlayOutChat")
-                        .getConstructor(new Class[] { getMinecraftClass("network.chat.IChatBaseComponent"), chatMessageTypeClazz, UUID.class })
-                        .newInstance(icbc, chatMessageTypeClazz.getEnumConstants()[2], p.getUniqueId());
-                Object nmsp = p.getClass().getMethod("getHandle").invoke(p);
-                Object pcon = nmsp.getClass().getField("b").get(nmsp);
-                pcon.getClass().getMethod("sendPacket", getMinecraftClass("network.protocol.Packet")).invoke(pcon, ppoc);
-
-            } else if (ver.startsWith("v1_13_") || ver.startsWith("v1_14_") || ver.startsWith("v1_15_") || ver.startsWith("v1_16_")) {
-                Object icbc = getNmsClass("ChatComponentText")
-                        .getConstructor(new Class[] { String.class })
-                        .newInstance(coloredMsg);
-                Object ppoc = getNmsClass("PacketPlayOutChat")
-                        .getConstructor(new Class[] { getNmsClass("IChatBaseComponent"), getNmsClass("ChatMessageType"), UUID.class })
-                        .newInstance(icbc, getNmsClass("ChatMessageType").getEnumConstants()[2], p.getUniqueId());
-                Object nmsp = p.getClass().getMethod("getHandle").invoke(p);
-                Object pcon = nmsp.getClass().getField("playerConnection").get(nmsp);
-                pcon.getClass().getMethod("sendPacket", getNmsClass("Packet")).invoke(pcon, ppoc);
-
-            } else if (ver.startsWith("v1_9_") || ver.startsWith("v1_10_") || ver.startsWith("v1_11_") || ver.startsWith("v1_12_")) {
-                Object icbc = getNmsClass("ChatComponentText").getConstructor(new Class[] { String.class }).newInstance(coloredMsg);
-                Object ppoc = getNmsClass("PacketPlayOutChat").getConstructor(new Class[] { getNmsClass("IChatBaseComponent"), byte.class }).newInstance(icbc, (byte) 2);
-                Object nmsp = p.getClass().getMethod("getHandle").invoke(p);
-                Object pcon = nmsp.getClass().getField("playerConnection").get(nmsp);
-                pcon.getClass().getMethod("sendPacket", getNmsClass("Packet")).invoke(pcon, ppoc);
-
-            } else */
             if (ver.startsWith("v1_8_")) {
                 Object icbc = getNmsClass("IChatBaseComponent$ChatSerializer").getMethod("a", String.class).invoke(null, "{'text': '" + coloredMsg + "'}");
                 Object ppoc = getNmsClass("PacketPlayOutChat").getConstructor(new Class[] { getNmsClass("IChatBaseComponent"), byte.class }).newInstance(icbc, (byte) 2);
