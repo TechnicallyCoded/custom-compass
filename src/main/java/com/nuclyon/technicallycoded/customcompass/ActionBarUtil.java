@@ -19,7 +19,8 @@ public class ActionBarUtil {
     }
 
     public static Class<?> getNmsClass(String nmsClassName) throws ClassNotFoundException {
-        return Class.forName("net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + "." + nmsClassName);
+        return Class.forName("net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName()
+                .replace(".", ",").split(",")[3] + "." + nmsClassName);
     }
 
     public static Class<?> getMinecraftClass(String nmsClassPath) throws ClassNotFoundException {
@@ -34,24 +35,37 @@ public class ActionBarUtil {
     public static void sendAction(Player p, String msg) {
         try {
             String coloredMsg = ChatColor.translateAlternateColorCodes('&', msg);
+
             if (ver.startsWith("v1_8_")) {
-                Object icbc = getNmsClass("IChatBaseComponent$ChatSerializer").getMethod("a", String.class).invoke(null, "{'text': '" + coloredMsg + "'}");
-                Object ppoc = getNmsClass("PacketPlayOutChat").getConstructor(new Class[] { getNmsClass("IChatBaseComponent"), byte.class }).newInstance(icbc, (byte) 2);
+                Object icbc = getNmsClass("IChatBaseComponent$ChatSerializer")
+                        .getMethod("a", String.class)
+                        .invoke(null, "{'text': '" + coloredMsg + "'}");
+                Object ppoc = getNmsClass("PacketPlayOutChat")
+                        .getConstructor(new Class[] { getNmsClass("IChatBaseComponent"), byte.class })
+                        .newInstance(icbc, (byte) 2);
                 Object nmsp = p.getClass().getMethod("getHandle").invoke(p);
                 Object pcon = nmsp.getClass().getField("playerConnection").get(nmsp);
                 pcon.getClass().getMethod("sendPacket", getNmsClass("Packet")).invoke(pcon, ppoc);
+            }
 
-            } else if (ver.startsWith("v1_7_")) {
-                Object icbc = getNmsClass("ChatSerializer").getMethod("a", String.class).invoke(null, "{'text': '" + coloredMsg + "'}");
-                Object ppoc = getNmsClass("PacketPlayOutChat").getConstructor(new Class[] { getNmsClass("IChatBaseComponent"), byte.class }).newInstance(icbc, (byte) 2);
+            else if (ver.startsWith("v1_7_")) {
+                Object icbc = getNmsClass("ChatSerializer")
+                        .getMethod("a", String.class)
+                        .invoke(null, "{'text': '" + coloredMsg + "'}");
+                Object ppoc = getNmsClass("PacketPlayOutChat")
+                        .getConstructor(new Class[] { getNmsClass("IChatBaseComponent"), byte.class })
+                        .newInstance(icbc, (byte) 2);
                 Object nmsp = p.getClass().getMethod("getHandle").invoke(p);
                 Object pcon = nmsp.getClass().getField("playerConnection").get(nmsp);
                 pcon.getClass().getMethod("sendPacket", getNmsClass("Packet")).invoke(pcon, ppoc);
+            }
 
-            }  else {
+            else {
                 p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(coloredMsg));
             }
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException | InstantiationException | NoSuchFieldException | NullPointerException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException |
+                 SecurityException | ClassNotFoundException | InstantiationException | NoSuchFieldException |
+                 NullPointerException e) {
             e.printStackTrace();
         }
     }
